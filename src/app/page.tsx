@@ -3,9 +3,9 @@
 import Image from "next/image";
 import * as React from 'react';
 //import { heart } from '/heart.png'
-import { promises as fs } from 'fs';
 import questions from './api/questions.json'
 export default function Home() {
+
   const [score, setScore] = React.useState(0);
   const [life, setLife] = React.useState(3);
   const [gameOver, setGameOver] = React.useState(false);
@@ -15,21 +15,36 @@ export default function Home() {
   //console.log(questions.length);
   const getQuestion = async () => {
     try { 
-      setTempData(questions[getRandomInt(questions.length)])
-      setRoundOver(false)
+        setTempData(questions[getRandomInt(questions.length)])
+        setRoundOver(false);
+        let tempArray = [];
+        questions.forEach(e => {
+            tempArray.push(e)
+        });
+        
+        let questionIndex = tempArray.findIndex(x => x.question === tempData.question)
+
+        //apicall (questionIndex, playersChoice)
+        await fetch(`/api/write/${questionIndex}`, {
+            method: 'POST',
+            body: JSON.stringify({ answer: playersChoice }),
+        });
+
+
     } catch (error) {
       //
+      console.log(error)
     }
   }
   function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
   }
 
-  function handleClick(answer: any) {
+  function handleClick(answer: any ,type=null) {
     if (gameOver) return;
     setPlayersChoice(answer);
     // eslint-disable-next-line no-use-before-define
-    if (answer == tempData.answer){ // eslint-disable-next-line no-use-before-define
+    if (answer == tempData.explanation){ // eslint-disable-next-line no-use-before-define
       setScore(score + 1);
     }else{
       if (life == 1) setGameOver(!gameOver);
@@ -61,7 +76,7 @@ export default function Home() {
               tempData.choices.map((e)=> {
 
                 return (
-                <div key={e} class="relative px-6 py-3 font-bold text-black group" style={{opacity: !roundOver ? null :  tempData.answer == e ? 1 : 0.2}}>
+                <div key={e} class="relative px-6 py-3 font-bold text-black group" style={{opacity: !roundOver ? 1 :  tempData.explanation == e ? 1 : 0.2}}>
                   <span class="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0" style={{background: !roundOver ? null : e == tempData.answer ? "green" : e == playersChoice ? "red" : null }} ></span>
                   <span class="absolute inset-0 w-full h-full border-2 rounded border-black" onClick={(v) => {!roundOver ? handleClick(e) : null}} ></span>
                   <span class="relative">{e}</span>
@@ -72,7 +87,7 @@ export default function Home() {
             }
               </div>
 
-              <div className="grid gap-2 p-4 text-center p-4 border-slate-500 items-center justify-center" style={{visibility: roundOver ? "visible" : "hidden"}}>
+              <div className="grid gap-2 p-4 text-center p-4 border-slate-500 items-center justify-center" style={{visibility: roundOver ? "visible" : "visible~"}}>
                 <div class="relative px-6 py-3 font-bold text-black group" onClick={getQuestion}>
                   <span class="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0"></span>
                   <span class="absolute inset-0 w-full h-full border-2 rounded border-black"></span>
