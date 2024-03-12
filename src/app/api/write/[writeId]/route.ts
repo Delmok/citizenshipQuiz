@@ -5,13 +5,13 @@ import path from 'path';
 type ResponseData = {
   message: string
 }
- 
-export async function POST(req, ctx){
+
+export async function POST(req: { json: () => any; }, ctx: { params: any; }){
 
     let data = await req.json();
     let { params } = ctx;
     console.log(data, params)
-    let tempArray = [];
+    let tempArray: ({ id: string; question: string; choices: string[]; explanation: string; answer?: undefined; } | { id: string; question: string; choices: string[]; explanation: string; answer: string; })[] = [];
     questions.forEach(e => {
         tempArray.push(e)
     });
@@ -27,8 +27,6 @@ export async function POST(req, ctx){
         }
         console.log("The file was saved!");
     }); 
-    //fs.writeFileSync('../../questions.json', JSON.stringify(tempArray, null, 4));
-
 
     return NextResponse.json({hello: 1})
 }

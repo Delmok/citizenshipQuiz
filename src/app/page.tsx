@@ -11,31 +11,32 @@ export default function Home() {
   const [gameOver, setGameOver] = React.useState(false);
   const [roundOver, setRoundOver] = React.useState(false);
   const [playersChoice, setPlayersChoice] = React.useState(null);
-  const [tempData, setTempData] = React.useState(questions[getRandomInt(questions.length)]);
+  const [tempData, setTempData] = React.useState(getUnAnsweredQuestion());
   //console.log(questions.length);
   const getQuestion = async () => {
+    if (gameOver){
+        setLife(3);
+        setScore(0);
+        setGameOver(!gameOver);
+    }
     try { 
-        setTempData(questions[getRandomInt(questions.length)])
+        setTempData(getUnAnsweredQuestion())
         setRoundOver(false);
-        let tempArray = [];
+        let tempArray: ({ id: string; question: string; choices: string[]; explanation: string; answer?: undefined; } | { id: string; question: string; choices: string[]; explanation: string; answer: string; })[] = [];
         questions.forEach(e => {
             tempArray.push(e)
         });
-        
-        let questionIndex = tempArray.findIndex(x => x.question === tempData.question)
-
-        //apicall (questionIndex, playersChoice)
-        await fetch(`/api/write/${questionIndex}`, {
-            method: 'POST',
-            body: JSON.stringify({ answer: playersChoice }),
-        });
-
-
     } catch (error) {
       //
-      console.log(error)
+      //console.log(error)
     }
   }
+
+  function getUnAnsweredQuestion(){
+    return questions[getRandomInt(questions.length)];
+
+  }
+
   function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
   }
@@ -44,11 +45,11 @@ export default function Home() {
     if (gameOver) return;
     setPlayersChoice(answer);
     // eslint-disable-next-line no-use-before-define
-    if (answer == tempData.explanation){ // eslint-disable-next-line no-use-before-define
+    if (answer == tempData.answer){ // eslint-disable-next-line no-use-before-define
       setScore(score + 1);
     }else{
       if (life == 1) setGameOver(!gameOver);
-      //setLife(life - 1)
+      setLife(life - 1)
     }
     setRoundOver(true)
   }
@@ -76,10 +77,10 @@ export default function Home() {
               tempData.choices.map((e)=> {
 
                 return (
-                <div key={e} class="relative px-6 py-3 font-bold text-black group" style={{opacity: !roundOver ? 1 :  tempData.explanation == e ? 1 : 0.2}}>
-                  <span class="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0" style={{background: !roundOver ? null : e == tempData.answer ? "green" : e == playersChoice ? "red" : null }} ></span>
-                  <span class="absolute inset-0 w-full h-full border-2 rounded border-black" onClick={(v) => {!roundOver ? handleClick(e) : null}} ></span>
-                  <span class="relative">{e}</span>
+                <div key={e} className="relative px-6 py-3 font-bold text-black group" style={{opacity: !roundOver ? 1 :  tempData.explanation == e ? 1 : 0.2}} onClick={(v) => {!roundOver ? handleClick(e) : null}} >
+                  <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0" style={{background: !roundOver ? null : e == tempData.answer ? "green" : e == playersChoice ? "red" : null }} ></span>
+                  <span className="absolute inset-0 w-full h-full border-2 rounded border-black" ></span>
+                  <span className="relative">{e}</span>
                 </div>
                 )
                 })
@@ -87,11 +88,11 @@ export default function Home() {
             }
               </div>
 
-              <div className="grid gap-2 p-4 text-center p-4 border-slate-500 items-center justify-center" style={{visibility: roundOver ? "visible" : "visible~"}}>
-                <div class="relative px-6 py-3 font-bold text-black group" onClick={getQuestion}>
-                  <span class="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0"></span>
-                  <span class="absolute inset-0 w-full h-full border-2 rounded border-black"></span>
-                  <span class="relative">{gameOver ? "NEW GAME" : "NEXT QUESTION"}</span>
+              <div className="grid gap-2 p-4 text-center border-slate-500 items-center justify-center" style={{visibility: roundOver ? "visible" : "hidden"}}>
+                <div className="relative px-6 py-3 font-bold text-black group"  onClick={getQuestion}>
+                  <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0"></span>
+                  <span className="absolute inset-0 w-full h-full border-2 rounded border-black"></span>
+                  <span className="relative">{gameOver ? "NEW GAME" : "NEXT QUESTION"}</span>
                 </div>
                 <div className="font-bold">Explanation:</div>
                 <div className="">{tempData.explanation}</div>
