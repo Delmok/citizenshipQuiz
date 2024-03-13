@@ -1,6 +1,3 @@
-Certainly! Below is a GitHub README.md file written in Markdown for a quiz website focused on Canadian citizenship:
-
-```markdown
 # Canadian Citizenship Quiz Website
 
 Welcome to the Canadian Citizenship Quiz Website! This website is designed to help individuals prepare for the Canadian citizenship test by providing a platform to practice with quiz questions related to Canadian history, government, geography, and culture.
