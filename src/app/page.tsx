@@ -65,7 +65,7 @@ export default function Home() {
                   <div className="animate-ping absolute font-extrabold opacity-75" key={score}>{score}</div>
                   <div className="relative font-extrabold">{score}</div>
                 </div> 
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justi0fy-center">
                   <Image className="" src={life > 0 ? "/heart.png" : "/heartoutline.png"} alt="heart" width="32" height="32" />
                   <Image className="" src={life > 1 ? "/heart.png" : "/heartoutline.png"} alt="heart" width="32" height="32" />
                   <Image className="" src={life > 2 ? "/heart.png" : "/heartoutline.png"} alt="heart" width="32" height="32" />
@@ -78,7 +78,7 @@ export default function Home() {
 
                 return (
                 <div key={e} className="relative px-6 py-3 font-bold text-black group" style={{opacity: !roundOver ? 1 :  tempData.explanation == e ? 1 : 0.2}} onClick={(v) => {!roundOver ? handleClick(e) : null}} >
-                  <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0" style={{background: !roundOver ? null : e == tempData.answer ? "green" : e == playersChoice ? "red" : null }} ></span>
+                  <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0" style={{background : !roundOver ? null : e == tempData.answer ? "green" : e == playersChoice ? "red" : null }} ></span>
                   <span className="absolute inset-0 w-full h-full border-2 rounded border-black" ></span>
                   <span className="relative">{e}</span>
                 </div>

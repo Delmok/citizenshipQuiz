@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Certainly! Below is a GitHub README.md file written in Markdown for a quiz website focused on Canadian citizenship:
 
-## Getting Started
+```markdown
+# Canadian Citizenship Quiz Website
 
-First, run the development server:
+Welcome to the Canadian Citizenship Quiz Website! This website is designed to help individuals prepare for the Canadian citizenship test by providing a platform to practice with quiz questions related to Canadian history, government, geography, and culture.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Quiz Mode**: Test your knowledge with multiple-choice questions similar to those found on the official Canadian citizenship test.
+- **Randomized Questions**: Each quiz session presents questions randomly to enhance learning and retention.
+- **Score Tracking**: Keep track of your quiz scores to monitor your progress over time.
+- **Educational Resources**: Access additional resources and study materials to deepen your understanding of Canadian citizenship.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Use
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. **Take a Quiz**: Choose a quiz category and start answering questions. Each quiz consists of multiple-choice questions with instant feedback.
+3. **Review Results**: After completing a quiz, review your answers and see the correct answers to improve your knowledge.
+4. **Track Progress**: Monitor your quiz scores over time to identify areas for improvement and track your learning journey.
+5. **Explore Resources**: Access educational materials and additional resources to enhance your understanding of Canadian citizenship topics.
 
-## Learn More
+## Installation and Setup
 
-To learn more about Next.js, take a look at the following resources:
+To set up the project locally, follow these steps:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository:
+   ```
+   git clone https://github.com/Delmok/citizenshipQuiz.git
+   ```
+2. Install dependencies:
+   ```
+   cd canadian-citizenship-quiz
+   npm install
+   ```
+3. Start the server:
+   ```
+   npm run dev
+   ```
+4. Access the website locally at `http://localhost:3000`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the [MIT License](LICENSE).
