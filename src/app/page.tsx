@@ -74,7 +74,7 @@ export default function Home() {
             <div className="text-center p-4">{tempData.question}</div>
             <div className="grid gap-4 p-4 text-center">
              {
-              tempData.choices.map((e)=> {
+              tempData.choices.sort(() => Math.random() - 0.5).map((e)=> {
 
                 return (
                 <div key={e} className="relative px-6 py-3 font-bold text-black group" style={{opacity: !roundOver ? 1 :  tempData.explanation == e ? 1 : 0.2}} onClick={(v) => {!roundOver ? handleClick(e) : null}} >
