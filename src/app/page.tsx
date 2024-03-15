@@ -74,11 +74,11 @@ export default function Home() {
             <div className="text-center p-4">{tempData.question}</div>
             <div className="grid gap-4 p-4 text-center">
              {
-              tempData.choices.sort(() => Math.random() - 0.5).map((e)=> {
+              tempData.choices.map((e)=> {
 
                 return (
                 <div key={e} className="relative px-6 py-3 font-bold text-black group" style={{opacity: !roundOver ? 1 :  tempData.explanation == e ? 1 : 0.2}} onClick={(v) => {!roundOver ? handleClick(e) : null}} >
-                  <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0" style={{background: !roundOver ? null : e == tempData.answer ? "green" : e == playersChoice ? "red" : null }} ></span>
+                  <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0" style={{background: !roundOver ? 'null' : e == tempData.answer ? "green" : e == playersChoice ? "red" : 'null' }} ></span>
                   <span className="absolute inset-0 w-full h-full border-2 rounded border-black" ></span>
                   <span className="relative">{e}</span>
                 </div>
@@ -88,7 +88,7 @@ export default function Home() {
             }
               </div>
 
-              <div className="grid gap-2 p-4 text-center border-slate-500 items-center justify-center" style={{visibility: roundOver ? "visible" : "hidden"}}>
+              <div className="grid gap-2 p-4 text-center border-slate-500 items-center justify-center" style={{display: roundOver ? "grid" : "none"}}>
                 <div className="relative px-6 py-3 font-bold text-black group"  onClick={getQuestion}>
                   <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0"></span>
                   <span className="absolute inset-0 w-full h-full border-2 rounded border-black"></span>
