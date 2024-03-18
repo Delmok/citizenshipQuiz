@@ -7,6 +7,8 @@ const nextConfig = {eslint: {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
-  },};
+  },
+  reactStrictMode: false
+};
 
 export default nextConfig;

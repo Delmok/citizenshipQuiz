@@ -4,7 +4,10 @@ import Image from "next/image";
 import * as React from 'react';
 //import { heart } from '/heart.png'
 import questions from './api/questions.json'
+
+
 export default function Home() {
+
 
   const [score, setScore] = React.useState(0);
   const [life, setLife] = React.useState(3);
@@ -56,6 +59,7 @@ export default function Home() {
 
   return (
     <>
+
       <div className="grid pt-10 p-4">
         <div className="m-auto grid gap-8 max-w-lg min-w-lg bg-blue-300 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
           <div className="-translate-y-2 -translate-x-2 shadow-inner bg-slate-600 rounded-3xl border border-slate-500 border-dashed showdow-inner">
