@@ -17,11 +17,14 @@ export default function Home() {
 
 
   const getQuestion = async () => {
-    sendGTMEvent({event: 'newGameStarted', value: 'newGame'})
+    
     if (gameOver){
+        sendGTMEvent({event: 'newGameStarted', value: 'newGame'})
         setLife(3);
         setScore(0);
         setGameOver(!gameOver);
+    }else{
+        sendGTMEvent({event: 'nextQuestion', value: 'nextQuestion'})
     }
     try {
         setPlayersChoice(null)
