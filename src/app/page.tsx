@@ -2,27 +2,28 @@
 /* eslint-disable */
 import Image from "next/image";
 import * as React from 'react';
-//import { heart } from '/heart.png'
 import questions from './api/questions.json'
-
+import { GoogleTagManager } from '@next/third-parties/google';
 
 export default function Home() {
 
-
+  const [answeredQuestions, setAnsweredQuestions] = React.useState([9000]);
   const [score, setScore] = React.useState(0);
   const [life, setLife] = React.useState(3);
   const [gameOver, setGameOver] = React.useState(false);
   const [roundOver, setRoundOver] = React.useState(false);
   const [playersChoice, setPlayersChoice] = React.useState(null);
   const [tempData, setTempData] = React.useState(getUnAnsweredQuestion());
-  //console.log(questions.length);
+
+
   const getQuestion = async () => {
     if (gameOver){
         setLife(3);
         setScore(0);
         setGameOver(!gameOver);
     }
-    try { 
+    try {
+        setPlayersChoice(null)
         setTempData(getUnAnsweredQuestion())
         setRoundOver(false);
         let tempArray: ({ id: string; question: string; choices: string[]; explanation: string; answer?: undefined; } | { id: string; question: string; choices: string[]; explanation: string; answer: string; })[] = [];
@@ -36,7 +37,17 @@ export default function Home() {
   }
 
   function getUnAnsweredQuestion(){
-    return questions[getRandomInt(questions.length)];
+    let randomQuestionID = getRandomInt(questions.length);
+    let question = questions[randomQuestionID];
+
+    question.choices = question.choices
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+
+    return question;
+
+    
   }
 
   function getRandomInt(max: number) {
@@ -60,10 +71,10 @@ export default function Home() {
     <>
 
       <div className="grid pt-10 p-4">
-        <div className="m-auto grid gap-8 max-w-lg min-w-lg bg-blue-300 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
-          <div className="-translate-y-2 -translate-x-2 shadow-inner bg-slate-600 rounded-3xl border border-slate-500 border-dashed showdow-inner">
+        <div className="m-auto grid gap-8 min-w-full bg-blue-300 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
+          <div className="-translate-y-2 -translate-x-2 shadow-inner bg-slate-600 rounded-3xl border border-slate-500 border-dashed showdow-inner ">
             <div className="grid">
-              <div className="grid p-4 text-center -translate-y-2">
+              <div className="grid p-4 text-center -translate-y-2 ">
                 <div className="relative flex items justify-center items-center"> 
                   <div className="animate-ping absolute font-extrabold opacity-75" key={score}>{score}</div>
                   <div className="relative font-extrabold">{score}</div>

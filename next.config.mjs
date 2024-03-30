@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {eslint: {
+const nextConfig = {
+    reactStrictMode: false,
+    eslint: {
     ignoreDuringBuilds: true,
   },  typescript: {
     // !! WARN !!
@@ -8,7 +10,7 @@ const nextConfig = {eslint: {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  reactStrictMode: false
+  
 };
 
 export default nextConfig;
