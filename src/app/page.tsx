@@ -37,7 +37,6 @@ export default function Home() {
 
   function getUnAnsweredQuestion(){
     return questions[getRandomInt(questions.length)];
-
   }
 
   function getRandomInt(max: number) {
