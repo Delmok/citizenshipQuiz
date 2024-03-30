@@ -3,7 +3,7 @@
 import Image from "next/image";
 import * as React from 'react';
 import questions from './api/questions.json'
-import { GoogleTagManager } from '@next/third-parties/google';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 export default function Home() {
 
@@ -17,6 +17,7 @@ export default function Home() {
 
 
   const getQuestion = async () => {
+    sendGTMEvent({event: 'newGameStarted', value: 'newGame'})
     if (gameOver){
         setLife(3);
         setScore(0);
@@ -55,12 +56,15 @@ export default function Home() {
   }
 
   function handleClick(answer: any ,type=null) {
+    
     if (gameOver) return;
     setPlayersChoice(answer);
     // eslint-disable-next-line no-use-before-define
     if (answer == tempData.answer){ // eslint-disable-next-line no-use-before-define
+        sendGTMEvent({event: 'answerClicked', value: 'correct'})
       setScore(score + 1);
     }else{
+        sendGTMEvent({event: 'answerClicked', value: 'incorrect'})
       if (life == 1) setGameOver(!gameOver);
       setLife(life - 1)
     }
