@@ -5,6 +5,7 @@ import * as React from 'react';
 import questions from './api/questions.json'
 import { sendGTMEvent } from '@next/third-parties/google';
 import Link from 'next/link'
+import useSound from 'use-sound';
 
 export default function Home() {
 
@@ -16,6 +17,20 @@ export default function Home() {
   const [playersChoice, setPlayersChoice] = React.useState(null);
   const [tempData, setTempData] = React.useState(getUnAnsweredQuestion());
 
+
+
+  const [hoverSound] = useSound(
+    './sounds/hover.wav',
+    { volume: 0.005 }
+  );
+  const [correctSound] = useSound(
+    './sounds/correct.wav',
+    { volume: 0.05 }
+  );
+  const [wrongSound] = useSound(
+    './sounds/wrong.wav',
+    { volume: 0.02 }
+  );
 
   const getQuestion = async () => {
     
@@ -65,12 +80,14 @@ export default function Home() {
     setPlayersChoice(answer);
     // eslint-disable-next-line no-use-before-define
     if (answer == tempData.answer){ // eslint-disable-next-line no-use-before-define
-        sendGTMEvent({event: 'answerClicked', value: 'correct'})
+      sendGTMEvent({event: 'answerClicked', value: 'correct'})
       setScore(score + 1);
+      correctSound()
     }else{
-        sendGTMEvent({event: 'answerClicked', value: 'incorrect'})
+      sendGTMEvent({event: 'answerClicked', value: 'incorrect'})
       if (life == 1) setGameOver(!gameOver);
       setLife(life - 1)
+      wrongSound()
     }
     setRoundOver(true)
   }
@@ -99,7 +116,7 @@ export default function Home() {
               tempData.choices.map((e)=> {
 
                 return (
-                <div key={e} className="relative px-6 py-3 font-bold text-black group" style={{opacity: !roundOver ? 1 :  tempData.explanation == e ? 1 : 0.2}} onClick={(v) => {!roundOver ? handleClick(e) : null}} >
+                <div key={e} className="relative px-6 py-3 font-bold text-black group" onMouseEnter={hoverSound} style={{opacity: !roundOver ? 1 :  tempData.explanation == e ? 1 : 0.2}} onClick={(v) => {!roundOver ? handleClick(e) : null}} >
                   <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0" style={{background: !roundOver ? 'null' : e == tempData.answer ? "green" : e == playersChoice ? "red" : 'null' }} ></span>
                   <span className="absolute inset-0 w-full h-full border-2 rounded border-black" ></span>
                   <span className="relative">{e}</span>
@@ -110,7 +127,7 @@ export default function Home() {
             }
               </div>
 
-              <div className="grid gap-2 p-4 text-center border-slate-500 items-center justify-center" style={{display: roundOver ? "grid" : "none"}}>
+              <div className="grid gap-2 p-4 text-center border-slate-500 items-center justify-center" onMouseEnter={hoverSound} style={{display: roundOver ? "grid" : "none"}}>
                 <div className="relative px-6 py-3 font-bold text-black group"  onClick={getQuestion}>
                   <span className="absolute inset-0 w-full h-full transition rounded duration-300 ease-out transform group-hover:-translate-x-2 group-hover:-translate-y-2 bg-blue-300 translate-x-0 translate-y-0"></span>
                   <span className="absolute inset-0 w-full h-full border-2 rounded border-black"></span>
@@ -124,7 +141,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <Link href="mailto:martin.jesse94@gmail.com">Contact Me</Link>
+        <Link href="mailto:martin.jesse94@gmail.com">Contact</Link>
       </div>
       
     </>
