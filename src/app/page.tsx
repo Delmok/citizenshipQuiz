@@ -4,6 +4,7 @@ import Image from "next/image";
 import * as React from 'react';
 import questions from './api/questions.json'
 import { sendGTMEvent } from '@next/third-parties/google';
+import Link from 'next/link'
 
 export default function Home() {
 
@@ -120,8 +121,12 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>  
+        </div>
       </div>
+      <div className="flex items-center justify-center">
+        <Link href="mailto:martin.jesse94@gmail.com">Contact Me</Link>
+      </div>
+      
     </>
   );
 }
