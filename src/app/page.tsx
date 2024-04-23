@@ -141,7 +141,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <Link href="mailto:martin.jesse94@gmail.com">Contact</Link>
+        <Link href="mailto:contact@citizenquiz.ca">Contact</Link>
       </div>
       
     </>
