@@ -5,7 +5,7 @@ import * as React from 'react';
 import questions from './api/questions.json'
 import { sendGTMEvent } from '@next/third-parties/google';
 import Link from 'next/link'
-import useSound from 'use-sound';
+import {useSound} from 'use-sound';
 
 export default function Home() {
 
